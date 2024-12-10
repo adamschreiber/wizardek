@@ -133,8 +133,8 @@
       for (let i = 1; i <= playerCount; i++) {
         const input = document.createElement('input');
         input.type = 'text';
-        input.name = player-${i};
-        input.placeholder = Player ${i} Name;
+        input.name = `player-${i}`;
+        input.placeholder = `Player ${i} Name`;
         input.required = true;
         playerNamesDiv.appendChild(input);
       }
@@ -162,17 +162,17 @@
     function initializeScoreTable() {
       const scoresTable = document.getElementById('scores-table');
       const headerRow = scoresTable.querySelector('thead tr');
-      headerRow.innerHTML = <th>Player</th>;
+      headerRow.innerHTML = `<th>Player</th>`;
 
       for (let i = 1; i <= 5; i++) { // Show only 5 rounds initially
         const roundHeader = document.createElement('th');
-        roundHeader.textContent = R${i};
+        roundHeader.textContent = `R${i}`;
         headerRow.appendChild(roundHeader);
       }
 
       players.forEach(player => {
         const row = document.createElement('tr');
-        row.innerHTML = <td>${player}</td>;
+        row.innerHTML = `<td>${player}</td>`;
         for (let i = 1; i <= 5; i++) {
           const cell = document.createElement('td');
           cell.textContent = "-"; // Placeholder for scores
@@ -209,7 +209,7 @@
           betBox.dataset.bet = i;
 
           betBox.addEventListener('click', function () {
-            document.querySelectorAll(.bet-box[data-player="${index}"]).forEach(box => box.classList.remove('selected'));
+            document.querySelectorAll(`.bet-box[data-player="${index}"]`).forEach(box => box.classList.remove('selected'));
             this.classList.add('selected');
           });
 
@@ -230,12 +230,12 @@
       let allBetsEntered = true;
 
       roundOrder.forEach((player, index) => {
-        const selectedBox = document.querySelector(.bet-box[data-player="${index}"].selected);
+        const selectedBox = document.querySelector(`.bet-box[data-player="${index}"].selected`);
         if (selectedBox) {
           playerBets.push({ player, bet: parseInt(selectedBox.dataset.bet, 10) });
         } else {
           allBetsEntered = false;
-          alert(Please select a bet for ${player});
+          alert(`Please select a bet for ${player}`);
         }
       });
 
@@ -269,7 +269,7 @@
           winBox.dataset.win = i;
 
           winBox.addEventListener('click', function () {
-            document.querySelectorAll(.bet-box[data-player="${index}"]).forEach(box => box.classList.remove('selected'));
+            document.querySelectorAll(`.bet-box[data-player="${index}"]`).forEach(box => box.classList.remove('selected'));
             this.classList.add('selected');
           });
 
@@ -290,12 +290,12 @@
       let allWinsEntered = true;
 
       roundOrder.forEach((player, index) => {
-        const selectedBox = document.querySelector(.bet-box[data-player="${index}"].selected);
+        const selectedBox = document.querySelector(`.bet-box[data-player="${index}"].selected`);
         if (selectedBox) {
           playerWins.push({ player, win: parseInt(selectedBox.dataset.win, 10) });
         } else {
           allWinsEntered = false;
-          alert(Please select wins for ${player});
+          alert(`Please select wins for ${player}`);
         }
       });
 
@@ -316,7 +316,7 @@
         });
 
         const newRoundHeader = document.createElement('th');
-        newRoundHeader.textContent = R${currentRound};
+        newRoundHeader.textContent = `R${currentRound}`;
         headerRow.appendChild(newRoundHeader);
 
         document.querySelectorAll('#scores-body tr').forEach((row, index) => {
