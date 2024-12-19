@@ -12,19 +12,28 @@
     }
     .player-bet-box {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: flex-start;
       margin: 10px 0;
     }
     .player-name {
       width: 150px;
-      text-align: left;
+      text-align: center;
       font-weight: bold;
-      margin-left: 20px;
+      margin: 5px 0;
     }
     .bet-grid {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(7, 40px);
       gap: 5px;
+      justify-content: center;
+    }
+    .extra-row {
+      display: grid;
+      grid-template-columns: repeat(7, 40px);
+      gap: 5px;
+      margin-top: 5px;
     }
     .bet-box {
       width: 40px;
@@ -242,7 +251,10 @@
         playerBetDiv.appendChild(playerLabel);
 
         const betGrid = document.createElement('div');
+        const extraRow = document.createElement('div');
+
         betGrid.classList.add('bet-grid');
+        extraRow.classList.add('extra-row');
 
         for (let i = 0; i <= currentRound; i++) {
           const betBox = document.createElement('div');
@@ -256,10 +268,17 @@
             this.classList.add('selected');
           });
 
-          betGrid.appendChild(betBox);
+          if (i >= 7) {
+            extraRow.appendChild(betBox);
+          } else {
+            betGrid.appendChild(betBox);
+          }
         }
 
         playerBetDiv.appendChild(betGrid);
+        if (extraRow.childNodes.length > 0) {
+          playerBetDiv.appendChild(extraRow);
+        }
         playerBetsDiv.appendChild(playerBetDiv);
       });
     }
@@ -298,7 +317,10 @@
         playerWinDiv.appendChild(playerLabel);
 
         const winGrid = document.createElement('div');
+        const extraRow = document.createElement('div');
+
         winGrid.classList.add('bet-grid');
+        extraRow.classList.add('extra-row');
 
         for (let i = 0; i <= currentRound; i++) {
           const winBox = document.createElement('div');
@@ -312,10 +334,17 @@
             this.classList.add('selected');
           });
 
-          winGrid.appendChild(winBox);
+          if (i >= 7) {
+            extraRow.appendChild(winBox);
+          } else {
+            winGrid.appendChild(winBox);
+          }
         }
 
         playerWinDiv.appendChild(winGrid);
+        if (extraRow.childNodes.length > 0) {
+          playerWinDiv.appendChild(extraRow);
+        }
         playerWinsDiv.appendChild(playerWinDiv);
       });
     }
