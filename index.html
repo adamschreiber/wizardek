@@ -6,71 +6,150 @@
   <title>Wizard Scorekeeper</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
-      margin-top: 50px;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
     }
+
+    h1 {
+      margin: 20px 0;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    form, .navigation-buttons {
+      margin: 20px auto;
+      max-width: 400px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    label {
+      font-size: 1.2em;
+    }
+
+    select, input[type="text"], button {
+      font-size: 1em;
+      padding: 10px;
+      margin: 10px 0;
+      width: calc(100% - 22px);
+      border: none;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    select, input[type="text"] {
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      background: linear-gradient(135deg, #42e695, #3bb2b8);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #3bb2b8, #42e695);
+      transform: translateY(-2px);
+    }
+
     .player-bet-box {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      margin: 10px 0;
+      margin: 20px 0;
     }
+
     .player-name {
-      width: 150px;
-      text-align: center;
-      font-weight: bold;
-      margin: 5px 0;
+      font-size: 1.2em;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     }
-    .bet-grid {
+
+    .bet-grid, .extra-row {
       display: grid;
       grid-template-columns: repeat(7, 40px);
-      gap: 5px;
+      gap: 10px;
       justify-content: center;
     }
-    .extra-row {
-      display: grid;
-      grid-template-columns: repeat(7, 40px);
-      gap: 5px;
-      margin-top: 5px;
-    }
+
     .bet-box {
       width: 40px;
       height: 40px;
-      display: inline-block;
-      background-color: lightgray;
-      text-align: center;
-      line-height: 40px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       cursor: pointer;
-      border: 1px solid #ddd;
+      transition: all 0.2s ease;
     }
+
+    .bet-box:hover {
+      transform: scale(1.1);
+    }
+
     .bet-box.selected {
-      background-color: green;
-      color: white;
-      border: 1px solid darkgreen;
+      background: linear-gradient(135deg, #ff7eb3, #ff758c);
+      color: #fff;
     }
+
     table {
       margin: 20px auto;
       border-collapse: collapse;
-      width: 80%;
+      width: 90%;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
-    table, th, td {
-      border: 1px solid black;
-    }
+
     th, td {
-      padding: 10px;
+      padding: 15px;
       text-align: center;
+      font-size: 1em;
+      color: #333;
     }
+
     th {
-      background-color: lightblue;
+      background: linear-gradient(135deg, #42e695, #3bb2b8);
+      color: #fff;
     }
+
+    tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    tr:nth-child(odd) td {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
     .navigation-buttons {
-      margin-top: 20px;
+      display: flex;
+      justify-content: center;
     }
-    .navigation-buttons button {
-      margin: 0 10px;
-      padding: 8px 16px;
+
+    @media (max-width: 600px) {
+      body {
+        font-size: 90%;
+      }
+
+      .bet-grid, .extra-row {
+        grid-template-columns: repeat(4, 40px);
+      }
+
+      button {
+        width: calc(100% - 20px);
+      }
     }
   </style>
 </head>
@@ -138,14 +217,60 @@
   </div>
 
   <script>
-    const players = [];
+    let players = [];
     let currentRound = 1;
     let playerBets = [];
     let playerWins = [];
     let playerScores = [];
-    let roundScores = []; // Track scores for each round separately
+    let roundScores = [];
     let roundOrder = [];
     let currentStep = 1;
+
+    function saveState() {
+      const state = {
+        players,
+        currentRound,
+        playerBets,
+        playerWins,
+        playerScores,
+        roundScores,
+        roundOrder,
+        currentStep,
+      };
+      localStorage.setItem('wizardScorekeeperState', JSON.stringify(state));
+    }
+
+    function loadState() {
+      const state = JSON.parse(localStorage.getItem('wizardScorekeeperState'));
+      if (state) {
+        ({ players, currentRound, playerBets, playerWins, playerScores, roundScores, roundOrder, currentStep } = state);
+        restoreUI();
+      }
+    }
+
+    function restoreUI() {
+      if (currentStep === 1) showStep(1);
+      if (currentStep === 2) {
+        populatePlayerNames();
+        showStep(2);
+      }
+      if (currentStep >= 3) {
+        initializeScoreTable();
+        setupRound();
+        if (currentStep === 3) showStep(3);
+        if (currentStep === 4) {
+          setupWins();
+          showStep(4);
+        }
+        if (currentStep === 5) {
+          calculateScores();
+          showStep(5);
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadState);
+    document.addEventListener('beforeunload', saveState);
 
     function showStep(step) {
       const steps = {
@@ -153,7 +278,7 @@
         2: 'name-entry',
         3: 'round-setup',
         4: 'record-wins',
-        5: 'round-scores'
+        5: 'round-scores',
       };
 
       Object.values(steps).forEach(id => {
@@ -161,6 +286,7 @@
       });
       document.getElementById(steps[step]).style.display = 'block';
       currentStep = step;
+      saveState();
     }
 
     document.querySelectorAll('.back-button').forEach(button => {
