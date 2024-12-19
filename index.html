@@ -154,6 +154,29 @@
         width: calc(100% - 20px);
       }
     }
+      .clear-data-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+  }
+
+  #clear-data {
+    background: linear-gradient(135deg, #ff5f6d, #ffc371);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  #clear-data:hover {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, #ffc371, #ff5f6d);
+  }
   </style>
 </head>
 <body>
@@ -173,7 +196,9 @@
     </select>
     <button type="submit">Next</button>
   </form>
-
+  <div class="clear-data-container">
+    <button id="clear-data">Clear Data</button>
+  </div>
   <div id="name-entry" style="display: none;">
     <h2>Enter Player Names</h2>
     <form id="name-form">
@@ -544,6 +569,13 @@
       setupRound();
       showStep(3);
     });
+    document.getElementById('clear-data').addEventListener('click', function () {
+  if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
+    localStorage.clear();
+    alert('All data cleared!');
+    location.reload(); // Refresh the page to reset the state
+  }
+});
   </script>
 </body>
 </html>
