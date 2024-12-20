@@ -6,34 +6,32 @@
   <title>Wizard Scorekeeper</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    background-size: cover; 
-    color: #fff;
-    height: 100vh;
-    overflow: hidden;  
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #000;
     }
 
     h1 {
       margin: 20px 0;
-      font-size: 2.5em;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      font-size: 2em;
     }
 
     form, .navigation-buttons {
       margin: 20px auto;
       max-width: 400px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
     }
 
     label {
-      font-size: 1.2em;
+      font-size: 1em;
+      display: block;
+      margin-bottom: 10px;
     }
 
     select, input[type="text"], button {
@@ -41,39 +39,28 @@
       padding: 10px;
       margin: 10px 0;
       width: calc(100% - 22px);
-      border: none;
+      border: 1px solid #ddd;
       border-radius: 5px;
-      outline: none;
-    }
-
-    select, input[type="text"] {
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     button {
-      background: linear-gradient(135deg, #42e695, #3bb2b8);
+      background-color: #007BFF;
       color: #fff;
+      border: none;
       cursor: pointer;
-      transition: all 0.3s ease;
     }
 
     button:hover {
-      background: linear-gradient(135deg, #3bb2b8, #42e695);
-      transform: translateY(-2px);
+      background-color: #0056b3;
     }
 
     .player-bet-box {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       margin: 20px 0;
     }
 
     .player-name {
-      font-size: 1.2em;
+      font-size: 1em;
       margin-bottom: 10px;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     .bet-grid, .extra-row {
@@ -86,23 +73,17 @@
     .bet-box {
       width: 40px;
       height: 40px;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 5px;
+      background-color: #fff;
+      border: 1px solid #ddd;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .bet-box:hover {
-      transform: scale(1.1);
     }
 
     .bet-box.selected {
-      background: linear-gradient(135deg, #ff7eb3, #ff758c);
+      background-color: #007BFF;
       color: #fff;
     }
 
@@ -110,73 +91,39 @@
       margin: 20px auto;
       border-collapse: collapse;
       width: 90%;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      background-color: #fff;
+      border: 1px solid #ddd;
     }
 
     th, td {
-      padding: 15px;
+      padding: 10px;
       text-align: center;
-      font-size: 1em;
-      color: #333;
+      border: 1px solid #ddd;
     }
 
     th {
-      background: linear-gradient(135deg, #42e695, #3bb2b8);
-      color: #fff;
-    }
-
-    tr:nth-child(even) td {
-      background: rgba(255, 255, 255, 0.6);
-    }
-
-    tr:nth-child(odd) td {
-      background: rgba(255, 255, 255, 0.8);
+      background-color: #f0f0f0;
     }
 
     .navigation-buttons {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
     }
 
-    @media (max-width: 600px) {
-      body {
-        font-size: 90%;
-      }
-
-      .bet-grid, .extra-row {
-        grid-template-columns: repeat(4, 40px);
-      }
-
-      button {
-        width: calc(100% - 20px);
-      }
+    .clear-data-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
     }
-      .clear-data-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 100;
-  }
 
-  #clear-data {
-    background: linear-gradient(135deg, #ff5f6d, #ffc371);
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-  }
-
-  #clear-data:hover {
-    transform: scale(1.1);
-    background: linear-gradient(135deg, #ffc371, #ff5f6d);
-  }
+    #clear-data {
+      background-color: #FF0000;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -196,9 +143,11 @@
     </select>
     <button type="submit">Next</button>
   </form>
+
   <div class="clear-data-container">
     <button id="clear-data">Clear Data</button>
   </div>
+
   <div id="name-entry" style="display: none;">
     <h2>Enter Player Names</h2>
     <form id="name-form">
