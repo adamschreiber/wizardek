@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wizard Scorekeeper</title>
   <style>
-    /* Same CSS as before */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
@@ -84,7 +83,7 @@
     }
 
     .extra-row {
-      margin-top: 20px;
+      margin-top: 10px;
     }
 
     .bet-box {
@@ -136,6 +135,12 @@
       background: rgba(255, 255, 255, 0.8);
     }
 
+    .navigation-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px; /* Add spacing between buttons */
+    }
+
     .clear-data-container {
       position: fixed;
       top: 10px;
@@ -181,7 +186,7 @@
       <div id="player-names"></div>
       <div class="navigation-buttons">
         <button type="button" class="back-button">Back</button>
-        <button type="submit">Start Game</button>
+        <button type="submit">Submit</button>
       </div>
     </form>
   </div>
@@ -343,16 +348,31 @@ document.getElementById("player-form").addEventListener("submit", function (even
 
 document.getElementById("name-form").addEventListener("submit", function (event) {
   event.preventDefault();
+  
+  // Reset all game-related variables
   players.length = 0;
+  playerScores.length = 0;
+  roundScores.length = 0;
+  roundOrder.length = 0;
+  playerBets.length = 0;
+  playerWins.length = 0;
+  currentRound = 1;
+  currentStep = 1;
 
+  // Clear the table body and reinitialize
+  document.getElementById("scores-body").innerHTML = "";
+
+  // Capture new player names
   const playerNames = Array.from(
     document.querySelectorAll("#name-entry input")
   ).map((input) => input.value);
   players.push(...playerNames);
 
+  // Reinitialize other variables based on the new player list
   playerScores = Array(players.length).fill(0);
-  roundOrder = [...players]; // Initialize round order
+  roundOrder = [...players]; // Reinitialize round order
 
+  // Rebuild the score table and set up the round
   initializeScoreTable();
   setupRound();
   showStep(3);
@@ -439,6 +459,7 @@ function setupRound() {
     playerBetsDiv.appendChild(playerBetDiv);
   });
 }
+
 
 document.getElementById("submit-bets").addEventListener("click", function () {
   playerBets = [];
