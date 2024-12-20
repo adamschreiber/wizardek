@@ -6,186 +6,127 @@
   <title>Wizard Scorekeeper</title>
   <style>
     body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-  background-size: cover; 
-  color: #fff;
-  height: 100vh;
-  overflow: hidden;  
-}
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+    }
 
-h1 {
-  margin: 20px 0;
-  font-size: 2.5em;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
+    h1 {
+      margin: 20px 0;
+      font-size: 2em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
 
-form, .navigation-buttons {
-  margin: 20px auto;
-  max-width: 400px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+    form, .navigation-buttons {
+      margin: 20px auto;
+      max-width: 400px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+    }
 
-label {
-  font-size: 1.2em;
-}
+    label {
+      font-size: 1em;
+      display: block;
+      margin-bottom: 10px;
+    }
 
-select, input[type="text"], button {
-  font-size: 1em;
-  padding: 10px;
-  margin: 10px 0;
-  width: calc(100% - 22px);
-  border: none;
-  border-radius: 5px;
-  outline: none;
-}
+    select, input[type="text"], button {
+      font-size: 1em;
+      padding: 10px;
+      margin: 10px 0;
+      width: calc(100% - 22px);
+      border: none;
+      border-radius: 5px;
+      outline: none;
+    }
 
-select, input[type="text"] {
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+    select, input[type="text"] {
+      background: rgba(255, 255, 255, 0.9);
+    }
 
-button {
-  background: linear-gradient(135deg, #42e695, #3bb2b8);
-  color: #fff;
-  cursor: pointer;
-  padding: 10px 20px;
-  margin: 10px 0;
-  width: calc(100% - 22px);
-  border: none;
-  border-radius: 5px;
-  font-size: 1em;
-  outline: none;
-  box-shadow: none; /* No shadow */
-  transition: none; /* No animation */
-}
+    button {
+      background: linear-gradient(135deg, #42e695, #3bb2b8);
+      color: #fff;
+      border: none;
+    }
 
-button:hover {
-  background: linear-gradient(135deg, #42e695, #3bb2b8); /* Same as default */
-  transform: none; /* No scaling */
-}
+    .player-bet-box {
+      margin: 20px 0;
+    }
 
-.player-bet-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px 0;
-}
+    .player-name {
+      font-size: 1em;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
 
-.player-name {
-  font-size: 1.2em;
-  margin-bottom: 10px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-}
+    .bet-grid, .extra-row {
+      display: grid;
+      grid-template-columns: repeat(7, 40px);
+      gap: 10px;
+      justify-content: center;
+    }
 
-.bet-grid, .extra-row {
-  display: grid;
-  grid-template-columns: repeat(7, 40px);
-  gap: 10px;
-  justify-content: center;
-}
+    .bet-box {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
 
-.bet-box {
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
+    .bet-box.selected {
+      background: linear-gradient(135deg, #ff7eb3, #ff758c);
+      color: #fff;
+    }
 
-.bet-box:hover {
-  transform: none; /* Remove hover scaling */
-}
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 90%;
+      background: rgba(255, 255, 255, 0.8);
+    }
 
-.bet-box.selected {
-  background: linear-gradient(135deg, #ff7eb3, #ff758c);
-  color: #fff;
-}
+    th, td {
+      padding: 10px;
+      text-align: center;
+      font-size: 1em;
+      border: 1px solid #ddd;
+    }
 
-table {
-  margin: 20px auto;
-  border-collapse: collapse;
-  width: 90%;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+    th {
+      background: linear-gradient(135deg, #42e695, #3bb2b8);
+      color: #fff;
+    }
 
-th, td {
-  padding: 15px;
-  text-align: center;
-  font-size: 1em;
-  color: #333;
-}
+    tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.6);
+    }
 
-th {
-  background: linear-gradient(135deg, #42e695, #3bb2b8);
-  color: #fff;
-}
+    tr:nth-child(odd) td {
+      background: rgba(255, 255, 255, 0.8);
+    }
 
-tr:nth-child(even) td {
-  background: rgba(255, 255, 255, 0.6);
-}
+    .clear-data-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+    }
 
-tr:nth-child(odd) td {
-  background: rgba(255, 255, 255, 0.8);
-}
-
-.navigation-buttons {
-  display: flex;
-  justify-content: center;
-}
-
-@media (max-width: 600px) {
-  body {
-    font-size: 90%;
-  }
-
-  .bet-grid, .extra-row {
-    grid-template-columns: repeat(4, 40px);
-  }
-
-  button {
-    width: calc(100% - 20px);
-  }
-}
-
-.clear-data-container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 100;
-}
-
-#clear-data {
-  background: linear-gradient(135deg, #ff5f6d, #ffc371);
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1em;
-  box-shadow: none; /* No shadow */
-  transition: none; /* No animation */
-}
-
-#clear-data:hover {
-  background: linear-gradient(135deg, #ff5f6d, #ffc371); /* Same as default */
-  transform: none; /* No scaling */
-}
+    #clear-data {
+      background: linear-gradient(135deg, #ff5f6d, #ffc371);
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
@@ -205,9 +146,11 @@ tr:nth-child(odd) td {
     </select>
     <button type="submit">Next</button>
   </form>
+
   <div class="clear-data-container">
     <button id="clear-data">Clear Data</button>
   </div>
+
   <div id="name-entry" style="display: none;">
     <h2>Enter Player Names</h2>
     <form id="name-form">
