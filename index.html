@@ -77,9 +77,13 @@ button:hover {
 
 .bet-grid, .extra-row {
   display: grid;
-  grid-template-columns: repeat(7, 40px);
-  gap: 10px;
+  grid-template-columns: repeat(7, 40px); /* Each row has 7 boxes */
+  gap: 10px; /* Gap between boxes */
   justify-content: center;
+}
+
+.extra-row {
+  margin-top: 10px; /* Add space between the first and second rows */
 }
 
 .bet-box {
