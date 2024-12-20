@@ -10,22 +10,22 @@
       text-align: center;
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      color: #fff;
+      background-color: #f4f4f4;
+      color: #000;
     }
 
     h1 {
       margin: 20px 0;
       font-size: 2em;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     form, .navigation-buttons {
       margin: 20px auto;
       max-width: 400px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
     }
 
     label {
@@ -39,19 +39,19 @@
       padding: 10px;
       margin: 10px 0;
       width: calc(100% - 22px);
-      border: none;
+      border: 1px solid #ddd;
       border-radius: 5px;
-      outline: none;
-    }
-
-    select, input[type="text"] {
-      background: rgba(255, 255, 255, 0.9);
     }
 
     button {
-      background: linear-gradient(135deg, #42e695, #3bb2b8);
+      background-color: #007BFF;
       color: #fff;
       border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
     }
 
     .player-bet-box {
@@ -61,7 +61,6 @@
     .player-name {
       font-size: 1em;
       margin-bottom: 10px;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     .bet-grid, .extra-row {
@@ -74,16 +73,17 @@
     .bet-box {
       width: 40px;
       height: 40px;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 5px;
+      background-color: #fff;
+      border: 1px solid #ddd;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: bold;
+      cursor: pointer;
     }
 
     .bet-box.selected {
-      background: linear-gradient(135deg, #ff7eb3, #ff758c);
+      background-color: #007BFF;
       color: #fff;
     }
 
@@ -91,27 +91,23 @@
       margin: 20px auto;
       border-collapse: collapse;
       width: 90%;
-      background: rgba(255, 255, 255, 0.8);
+      background-color: #fff;
+      border: 1px solid #ddd;
     }
 
     th, td {
       padding: 10px;
       text-align: center;
-      font-size: 1em;
       border: 1px solid #ddd;
     }
 
     th {
-      background: linear-gradient(135deg, #42e695, #3bb2b8);
-      color: #fff;
+      background-color: #f0f0f0;
     }
 
-    tr:nth-child(even) td {
-      background: rgba(255, 255, 255, 0.6);
-    }
-
-    tr:nth-child(odd) td {
-      background: rgba(255, 255, 255, 0.8);
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
     }
 
     .clear-data-container {
@@ -121,11 +117,12 @@
     }
 
     #clear-data {
-      background: linear-gradient(135deg, #ff5f6d, #ffc371);
+      background-color: #FF0000;
       color: #fff;
       padding: 10px 20px;
       border: none;
       border-radius: 5px;
+      cursor: pointer;
     }
   </style>
 </head>
