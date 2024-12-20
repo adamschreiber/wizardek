@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="/wizard.png" type="image/x-icon">
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wizard Scorekeeper</title>
@@ -13,10 +11,10 @@
   margin: 0;
   padding: 0;
   background: linear-gradient(135deg, #6a11cb, #2575fc); /* Vibrant gradient background */
-  background-size: cover; 
+  background-size: cover;
   color: #fff;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh; /* Ensures the body fills the viewport height */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 h1 {
@@ -79,32 +77,32 @@ button:hover {
 
 .bet-grid, .extra-row {
   display: grid;
-  grid-template-columns: repeat(7, 40px); /* Each row has 7 boxes */
-  gap: 10px; /* Gap between boxes */
+  grid-template-columns: repeat(7, 40px);
+  gap: 10px;
   justify-content: center;
 }
 
 .extra-row {
-  margin-top: 10px; /* Add space between the first and second rows */
+  margin-top: 20px; /* Adds space between the rows */
 }
 
 .bet-box {
   width: 40px;
   height: 40px;
-  background: rgba(255, 255, 255, 0.9); /* Box background color */
+  background: rgba(255, 255, 255, 0.9); /* Light background for boxes */
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  color: #333; /* Change this to modify the text color in the boxes */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  color: #333; /* Default text color */
   cursor: pointer;
 }
 
 .bet-box.selected {
-  background: linear-gradient(135deg, #ff7eb3, #ff758c); /* Selected box background */
-  color: #fff; /* Change this to modify the text color when the box is selected */
+  background: linear-gradient(135deg, #ff7eb3, #ff758c); /* Pink gradient for selected */
+  color: #fff; /* White text */
 }
 
 table {
@@ -156,7 +154,6 @@ tr:nth-child(odd) td {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1em;
 }
   </style>
 </head>
