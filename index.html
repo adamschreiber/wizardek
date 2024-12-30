@@ -235,7 +235,7 @@ let roundScores = [];
 let roundOrder = [];
 let currentStep = 1;
 
-const trumpSymbols = ["♥", "♠", "♣", "♦", "NT"]; // Cycle through these, with NT for no trump
+const trumpSymbols = ["♥", "♣", "♠", "♦", "NT"]; // Cycle through these, with NT for no trump
 
 function getTrumpSymbol(round) {
   return trumpSymbols[(round - 1) % trumpSymbols.length];
