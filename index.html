@@ -382,22 +382,43 @@ function initializeScoreTable() {
   const scoresTable = document.getElementById("scores-table");
   const headerRow = scoresTable.querySelector("thead tr");
   headerRow.innerHTML = "<th>Player</th>";
+  
+  // Calculate start and end rounds for display
+  const startRound = Math.max(1, currentRound - 4);
+  const endRound = startRound + 4;
 
-  for (let i = 1; i <= 5; i++) {
+  // Create headers
+  for (let i = startRound; i <= endRound; i++) {
     const roundHeader = document.createElement("th");
     roundHeader.textContent = `R${i}`;
     headerRow.appendChild(roundHeader);
   }
 
-  players.forEach((player) => {
+  // Create rows
+  const tbody = document.getElementById("scores-body");
+  tbody.innerHTML = "";
+  
+  players.forEach((player, playerIndex) => {
     const row = document.createElement("tr");
     row.innerHTML = `<td>${player}</td>`;
-    for (let i = 1; i <= 5; i++) {
+    
+    // Add score cells
+    for (let round = startRound; round <= endRound; round++) {
       const cell = document.createElement("td");
-      cell.textContent = "-";
+      const roundIndex = round - 1;
+      
+      if (roundScores[roundIndex] && roundIndex < currentRound) {
+        let totalScore = 0;
+        for (let r = 0; r <= roundIndex; r++) {
+          totalScore += roundScores[r][playerIndex] || 0;
+        }
+        cell.textContent = totalScore;
+      } else {
+        cell.textContent = "-";
+      }
       row.appendChild(cell);
     }
-    document.getElementById("scores-body").appendChild(row);
+    tbody.appendChild(row);
   });
 }
 
@@ -583,11 +604,8 @@ function calculateScores() {
     }
   }
 
-  players.forEach((player, index) => {
-    const row = document.querySelectorAll("#scores-body tr")[index];
-    const scoreCell = row.children[Math.min(currentRound, 5)];
-    scoreCell.textContent = playerScores[index];
-  });
+  // Replace the old table update with initializeScoreTable call
+  initializeScoreTable();
 
   rotateOrder();
 }
